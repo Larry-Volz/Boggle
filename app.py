@@ -14,4 +14,5 @@ def home_instructions():
 
 @app.route('/game-start')
 def game_start():
-    return render_template('game-start.html')
+    board_cells = boggle_game.make_board()
+    return render_template('game-start.html', board_cells=board_cells)
