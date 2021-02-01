@@ -33,6 +33,7 @@ class Boggle():
         """Check if a word is a valid word in the dictionary and/or the boggle board"""
 
         word_exists = word in self.words
+        #I don't understand the following???
         valid_word = self.find(board, word.upper())
 
         if word_exists and valid_word:

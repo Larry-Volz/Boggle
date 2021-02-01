@@ -1,0 +1,34 @@
+@startuml
+' control app.py
+' entity Boggle
+' control make_board
+' user as participant
+' boundary index.html
+' database words
+' boundary board.html
+' entity board
+' control read_dict
+' control check_valid_word
+' control find_from 
+' control find
+
+app.py -> Boggle : creates
+Boggle -> read_dict 
+read_dict --> app.py:words[]
+app.py -> make_board
+app.py <-- make_board :board[][]
+user -> index.html: route /
+user <-- index.html: instructions/start
+index.html -> game.html: route /boggle/start
+user <-- game.html: display game.html
+user -> game.html: drags across letters
+game.html -> JS_event_hdlr: creates word
+JS_event_hdlr -> check_valid_word
+check_valid_word -> find: valid word
+check_valid_word -->JS_event_hdlr:invalid reset scrn
+find -> find_from
+find_from --> find :yes or no
+find -> score:+ if yes
+find --> JS_event_hdlr:reset if no
+
+@enduml
