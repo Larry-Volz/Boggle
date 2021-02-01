@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block display_area%}
+<h2 class="display-5">
+    Instructions
+</h2>
+<p>Drag your curser from letter to letter within the 5 x 5 area to make words and score points. </p>
+<div class="row justify-content-center">
+    <div id="board" class="col-8 bg-success m-2 p-0">
+        <div class="row justify-content-center">
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+            <div class="game-cells col-1 bg-white m-1 border rounded shadow-lg py-1 px-4 text-center">A</div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <form action="/game-start" class="justify-content-center">
+        <button type="submit" class="btn btn-warning px-5 shadow-lg">Play Again!</button>
+    </form>
+</div>
+<div class="row my-2"></div>
+
+{% endblock%}

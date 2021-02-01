@@ -1,0 +1,12 @@
+
+.game-cells {
+    text-align: center !important;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bolder;
+
+}
+
+.game-cells:hover {
+    background-color: yellow !important;
+}
