@@ -17,40 +17,50 @@ $('#board').on("mousedown touchstart", ".game-cells", (evt) => {
     evt.preventDefault(); //eliminate default highlighting of text
     mouseDown = true;
 
+    //TODO: clear board for another round
+
+    console.log(`MOUSEDOWN`)
     letter = $(evt.target).closest(".game-cells").text().toString().trim();
     x = $(evt.target).closest(".game-cells").data('x')
     y = $(evt.target).closest(".game-cells").data('y')
 
-    console.table(seen)
-    console.log(`x:${x}, y:${y} `)
+    // console.table(seen)
+    // console.log(`x:${x}, y:${y} `)
+
     if (seen.some(xyInArray)) {
-        console.log(`${x},${y} ALREADY IN ARRAY`)
+        console.log(`------`)
     } else {
         seen.push({ 'x': x, 'y': y })
-        console.log(`${x},${y} ADDED TO ARRAY`)
+        word += letter;
+        console.log(`${letter} ADDED TO ARRAY`)
     }
 
-    // lastX=x;
-    // lastY=y;
+    $(evt.target).removeClass("bg-white");
+    $(evt.target).addClass("bg-primary");
 
-    console.log(`x: ${x} y: ${y}`)
-    $(evt.target).css("background-color", "rgb(0,0,128,0.5)");
-    console.log("MOUSEDOWN")
-    console.log(`letter: ${letter}`)
+    // console.log(`MOUSEDOWN x: ${x} y: ${y} letter: ${letter}`)
 });
 
-$('.game-cells').on("mouseover", (evt) => {
+$('#board').on("mouseover", ".game-cells", (evt) => {
     evt.preventDefault();
     if (mouseDown) {
-        // $(evt.target).toggleClass("bg-primary", "bg-white");
-        $(evt.target).css("background-color", "rgb(0,0,128,0.5)");
-
+        
+        $(evt.target).removeClass("bg-white");
+        $(evt.target).addClass("bg-primary");
+        
         letter = $(evt.target).text().toString().trim();
-
         x = $(evt.target).closest(".game-cells").data('x')
         y = $(evt.target).closest(".game-cells").data('y')
+        
+        console.log(`MOUSE-OVER`)
+        if (seen.some(xyInArray)) {
+            console.log(`------`)
+        } else {
+            seen.push({ 'x': x, 'y': y })
+            word += letter;
+            console.log(`${letter} ADDED TO ARRAY`)
+        }
 
-        console.log(`MOUSEOVER x:${x} y:${y} : ${letter}`)
     }
 });
 
@@ -58,8 +68,14 @@ $('.game-cells').on("mouseout", (evt) => {
     evt.preventDefault();
     if (mouseDown) {
 
-        word += letter;
-        console.log(`MOUSEOUT letter: ${letter} word: ${word}`)
+        console.log(`MOUSEOUT`)
+        if (seen.some(xyInArray)) {
+            console.log(`------`)
+        } else {
+            seen.push({ 'x': x, 'y': y })
+            word += letter;
+            console.log(`${letter} ADDED TO ARRAY`)
+        }
     }
 });
 
@@ -67,7 +83,7 @@ $('.game-cells').on("mouseout", (evt) => {
 $(window.document).on('mouseup touchend', (event) => {
     // Capture this event anywhere in the document, since the mouse may leave our element while mouse is down and then the 'up' event will not fire within the element.
     mouseDown = false;
-    word += letter;
+    
     if (word.length > 0) {
         console.log(`MOUSEUP - word is ${word}`);
 
@@ -87,5 +103,6 @@ function xyInArray(val, idx) {
     //to be used in every
     //xy format [{'x':x,'y':y}, {},{}]
     //xy2 format {'x':x,'y':y} <-- passed from outside as global var
-    return (val[idx]['x'] == x && val[idx]['y'] == y);
+    // console.log(val['x'] == x && val['y'] == y);
+    return (val['x'] == x && val['y'] == y);
 };
