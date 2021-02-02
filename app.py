@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session
 from unittest import TestCase 
 from boggle import Boggle
+import time
 
 app=Flask(__name__)
 app.config['SECRET_KEY']='7271112'
@@ -9,11 +10,31 @@ boggle_game = Boggle()
 points = 0
 word=""
 words=[]
+begun=0
+high_score=0
 
 
 @app.route('/')
 def home_instructions():
+    global high_score
+    if session['high_score'] is not None:
+        print("YAY!")
+        high_score = session['high_score']
+    # else:
+    #     session['high_score']="0"
+    # print(f"high score: {high_score}")
     return render_template('index.html')
+
+@app.route('/start-timer')
+def start_timer():
+    global begun
+    global points
+    points=0
+    begun = time.time()
+    session['begun']=begun
+    
+    print(f"game begun: {begun}")
+    return redirect('/game-start')
 
 @app.route('/game-start')
 def game_start(word=""):
@@ -30,6 +51,7 @@ def get_word():
     global word
     global words
     global points
+    # global high_score
     word = request.form['word_input']
     print(f"word is: {word}")
 
@@ -44,24 +66,35 @@ def get_word():
         #DONE: update points
         points += 10**(len(word)-1)
         words.append(word)
-        for wrd in words:
-            print(f"{wrd}-")
-        #TODO: reset the points on game re-start
 
-        # DONE: Send a JSON response which contains either a dictionary of {“result”: “ok”}, {“result”: “not-on-board”}, or {“result”: “not-a-word”}, so the front-end can provide slightly different messages depending if the word is valid or not.
+        # if points > high_score:
+        #     high_score = points
+        #     session['high_score'] = high_score
+
+        #DONE: reset the points on game re-start
+
+        #DONE: Send a JSON response which contains either a dictionary of {“result”: “ok”}, {“result”: “not-on-board”}, or {“result”: “not-a-word”}, so the front-end can provide slightly different messages depending if the word is valid or not.
         #DONE: instead of messages I refactored the output field turn green for a correct response and increase the points and red for an incorrect response and not affect the points
 
         #TODO: make sure 
     else:
         word_validity="not-word"
 
+    #timer up?
+    if time.time()-float(session['begun']) > 30:
+        return render_template('game-over.html', points=points)
 
     # return redirect('game-start')
-    
     return render_template('game-start.html', board_cells=board_cells, points=points, word=word, word_validity=word_validity)
 
 @app.route('/reset_board')
 def reset_board():
     global points
     points=0
-    return redirect('/game-start')
+    return redirect('/start-timer')
+
+@app.route('/game-over')
+def game_over():
+    global points
+    request.args.get(points,0)
+    return render_template('game-over.html', points=points)

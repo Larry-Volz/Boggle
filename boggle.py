@@ -22,9 +22,9 @@ class Boggle():
         """Make and return a random boggle board."""
 
         board = []
-
+        alphas_plus_vowels = string.ascii_uppercase +"AEIOU"
         for y in range(5):
-            row = [choice(string.ascii_uppercase) for i in range(5)]
+            row = [choice(alphas_plus_vowels) for i in range(5)]
             board.append(row)
 
         return board

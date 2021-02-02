@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block display_area%}
-
+<div><h3>HighScore: {{ high_score }}</h3></div>
 <div class="row justify-content-center">
-    <div id="word-status" class="col-8 col-lg-5 bg-white {{ word_validity }}  mt-3 py-2 text-center">
+    <div id="word-status" class="col-8 bg-white {{ word_validity }}  mt-3 py-2 text-center">
         <div id="word-display" class="col-9" style="display: inline;">&nbsp;{{ word }} </div><span class="col-3 badge badge-info text-center float-right px-3">Points: {{ points }}</span>
     </div>
 </div>
@@ -107,6 +107,5 @@
     <input type="hidden" id="points" name="points" value="{{ points }}">
 
 </form>
-<div class="row my-2"></div>
 
 {% endblock%}

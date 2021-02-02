@@ -13,6 +13,7 @@ setInterval(function(){
     // $('#word-status').addClass("bg-white");
  }, 1000);
 
+
 // TODO:  On the front-end, display the response from the backend to notify the user if the word is valid and exists on the board, if the word is invalid, or if the word does not exist at all.
 
 // alert(seen.every(notEq))
@@ -112,8 +113,6 @@ $(window.document).on('mouseup touchend', (event) => {
 });
 
 
-
-
 function xyInArray(val, idx) {
     //to be used in every
     //xy format [{'x':x,'y':y}, {},{}]
@@ -126,3 +125,13 @@ function resetCellColor(){
     $(".game-cells").removeClass("bg-primary");
     $(".game-cells").addClass("bg-white");
 }
+
+// $("#play-again").on("click", timerFunction())
+// $("#reset_board").on("click", timerFunction())
+
+// function timerFunction(){
+//     setTimeout(()=>{
+//         // alert('TIME UP!')
+//   window.location.replace("/game-over");
+//   }, 5000)
+// }

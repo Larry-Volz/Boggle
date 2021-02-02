@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block display_area%}
+<h2 class="display-5">
+    Game Over
+</h2>
+<p>Your Score:<span id="score_display"> {{ points }}</span> </p>
+<div class="row justify-content-center">
+    <form action="/game-start" class="justify-content-center" id="play-again">
+        <button type="submit" class="btn btn-warning px-5 shadow-lg">Play Again!</button>
+    </form>
+</div>
+<div class="row my-2"></div>
+
+{% endblock%}
