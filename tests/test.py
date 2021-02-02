@@ -21,3 +21,7 @@ class FlaskTests(TestCase):
 
 #TODO: does EVERY word including individual letters give points?  why?
 
+#TODO: Can you do the same word more than once?  (make words=[])
+
+
+

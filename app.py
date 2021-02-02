@@ -17,12 +17,10 @@ high_score=0
 @app.route('/')
 def home_instructions():
     global high_score
-    if session['high_score'] is not None:
-        print("YAY!")
-        high_score = session['high_score']
-    # else:
-    #     session['high_score']="0"
-    # print(f"high score: {high_score}")
+   
+    high_score=session.get('high_score', 0)
+    session['high_score'] = high_score
+
     return render_template('index.html')
 
 @app.route('/start-timer')
@@ -33,7 +31,7 @@ def start_timer():
     begun = time.time()
     session['begun']=begun
     
-    print(f"game begun: {begun}")
+    # print(f"game begun: {begun}")
     return redirect('/game-start')
 
 @app.route('/game-start')
@@ -42,18 +40,18 @@ def game_start(word=""):
     board_cells = boggle_game.make_board()
     #store board in session
     session['board']=board_cells
-    print(session['board'])
+    # print(session['board'])
     #display board on page
-    return render_template('game-start.html', board_cells=board_cells, points=points, word=word)
+    return render_template('game-start.html', board_cells=board_cells, points=points, word=word, high_score=session['high_score'])
 
 @app.route('/submit_word', methods=['POST'])
 def get_word():
     global word
     global words
     global points
-    # global high_score
+    global high_score
     word = request.form['word_input']
-    print(f"word is: {word}")
+    # print(f"word is: {word}")
 
     # TODO: take the form value and check if it is a valid word in the dictionary using the words variable in your app.py.
     board_cells = session['board']
@@ -67,9 +65,10 @@ def get_word():
         points += 10**(len(word)-1)
         words.append(word)
 
-        # if points > high_score:
-        #     high_score = points
-        #     session['high_score'] = high_score
+        if points > session['high_score'] :
+            session['high_score'] = points
+
+        # print("HIGH SCORE", session['high_score'])
 
         #DONE: reset the points on game re-start
 
@@ -79,13 +78,14 @@ def get_word():
         #TODO: make sure 
     else:
         word_validity="not-word"
+    high_score=session['high_score'] 
 
     #timer up?
-    if time.time()-float(session['begun']) > 30:
-        return render_template('game-over.html', points=points)
+    if time.time()-float(session['begun']) > 60:
+        return render_template('game-over.html', points=points, high_score=high_score)
 
     # return redirect('game-start')
-    return render_template('game-start.html', board_cells=board_cells, points=points, word=word, word_validity=word_validity)
+    return render_template('game-start.html', board_cells=board_cells, points=points, word=word, word_validity=word_validity, high_score=session['high_score'])
 
 @app.route('/reset_board')
 def reset_board():
@@ -97,4 +97,6 @@ def reset_board():
 def game_over():
     global points
     request.args.get(points,0)
-    return render_template('game-over.html', points=points)
+    high_score=session['high_score']
+    print(f"high_score from game_over: {high_score}")
+    return render_template('game-over.html', points=points, high_score=high_score)

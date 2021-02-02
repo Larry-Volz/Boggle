@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block display_area%}
-<h2 class="display-5">
+<h2 class="display-5 text-center text-white">
     Game Over
 </h2>
-<p>Your Score:<span id="score_display"> {{ points }}</span> </p>
 <div class="row justify-content-center">
-    <form action="/game-start" class="justify-content-center" id="play-again">
+    <div class="col-5 bg-success border rounded m-1">
+        <p>Your Score:<span id="score_display"> {{ points }}</span>
+            <br />High Score:<span id="score_display"> {{ high_score }}</span> </p>
+    </div>
+    <div class="col-5 bg-white m-2 border rounded">Try beating some of these high scores on the very same boards they used:</div>
+</div>
+<div class="row justify-content-center">
+    <form action="/start-timer" class="justify-content-center" id="play-again">
         <button type="submit" class="btn btn-warning px-5 shadow-lg">Play Again!</button>
     </form>
 </div>
