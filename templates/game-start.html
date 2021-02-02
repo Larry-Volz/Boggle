@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block display_area%}
-<h2 class="display-5">
-    Instructions
-</h2>
-<p>Drag your curser from letter to letter within the 5 x 5 area to make words and score points. </p>
+
+<div class="row justify-content-center">
+    <div id="word-status" class="col-8 col-lg-5 bg-white {{ word_validity }}  mt-3 py-2 text-center">
+        <div id="word-display" class="col-9" style="display: inline;">&nbsp;{{ word }} </div><span class="col-3 badge badge-info text-center float-right px-3">Points: {{ points }}</span>
+    </div>
+</div>
 <div class="row justify-content-center py-2">
     <div id="board" class="col-8 col-lg-5 bg-success mx-2 p-1 py-3">
         <div class="row justify-content-center">
@@ -94,11 +96,17 @@
         </div>
     </div>
 </div>
-<div class="row justify-content-center" style="display: none;">
-    <form action="/game-start" class="justify-content-center">
-        <button type="submit" class="btn btn-warning px-5 shadow-lg">Play Again!</button>
+<div class="row justify-content-center">
+    <form action="/reset_board" id="reset_board" name="reset_board" class="justify-content-center" method="GET">
+        <input type="hidden" name="reset" value="reset">
+        <button type="submit" class="btn btn-warning px-5 shadow-lg">Reset Board</button>
     </form>
 </div>
+<form action="/submit_word" id="submit_word" method="POST">
+    <input type="hidden" id="word_input" name="word_input" value="">
+    <input type="hidden" id="points" name="points" value="{{ points }}">
+
+</form>
 <div class="row my-2"></div>
 
 {% endblock%}

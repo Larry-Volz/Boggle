@@ -6,6 +6,21 @@
     font-weight: bolder;
 
 }
+
+.ok {
+    background-color: lightgreen !important;
+}
+
+.not-on-board, .not-word {
+    background-color: pink !important;
+}
+
+#word-display {
+    text-align: center !important;
+    color: black;
+    font-size: 1.0rem;
+    font-weight: bolder;
+}
 #board {
     min-width: 360px;
 }
