@@ -40,7 +40,6 @@ def game_start(word=""):
     board_cells = boggle_game.make_board()
     #store board in session
     session['board']=board_cells
-    # print(session['board'])
     #display board on page
     return render_template('game-start.html', board_cells=board_cells, points=points, word=word, high_score=session['high_score'])
 
@@ -51,15 +50,14 @@ def get_word():
     global points
     global high_score
     word = request.form['word_input']
-    # print(f"word is: {word}")
 
     # TODO: take the form value and check if it is a valid word in the dictionary using the words variable in your app.py.
     board_cells = session['board']
     word_validity = boggle_game.check_valid_word(board_cells, word.lower())
 
-    # TODO: Next, make sure that the word is valid on the board using the check_valid_word function from the boggle.py file.
+    # DONE: esure word is valid on the board
     word_on_board = boggle_game.find(board_cells, word.upper())
-    # TODO: Since you made an AJAX request to your server, you will need to respond with JSON using the jsonify function from Flask.  (N/A because I designed a unique user interface/jquery submitted form instead)
+    
     if word_validity =="ok" and word_on_board == True and word not in words and len(word)>1:
         #DONE: update points
         points += 10**(len(word)-1)
@@ -67,8 +65,6 @@ def get_word():
 
         if points > session['high_score'] :
             session['high_score'] = points
-
-        # print("HIGH SCORE", session['high_score'])
 
         #DONE: reset the points on game re-start
 
@@ -78,10 +74,11 @@ def get_word():
         #TODO: make sure 
     else:
         word_validity="not-word"
-    high_score=session['high_score'] 
+    high_score=session['high_score']
 
     #timer up?
     if time.time()-float(session['begun']) > 60:
+        set_all_scores(points)
         return render_template('game-over.html', points=points, high_score=high_score)
 
     # return redirect('game-start')
@@ -98,5 +95,17 @@ def game_over():
     global points
     request.args.get(points,0)
     high_score=session['high_score']
-    print(f"high_score from game_over: {high_score}")
+   
     return render_template('game-over.html', points=points, high_score=high_score)
+
+
+def set_all_scores(points):
+    """for future development - sort, add game boards and allow others to play the same game with same letters later"""
+    all_scores=[]
+    all_scores= session.get('all_scores',[0])
+    all_scores.append(points)
+    session['all_scores'] = all_scores
+    for ea in all_scores:
+        print(f"score: {ea}")
+    print(f"high_score from game_over: {high_score}")
+    return all_scores
