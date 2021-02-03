@@ -31,14 +31,16 @@ class FlaskTests(TestCase):
 
     def test_game_start(self):
         with app.test_client() as test_server:
+            with test_server.session_transaction() as change_session:
+                session['high_score'] = 999
 
             resp=test_server.get('/game-start')
             html=resp.get_data(as_text=True)
 
             print(F"STATUSCODE: {resp.status_code}")
 
-            # self.assertEqual(resp.status_code, 200)
-            # self.assertIn('HighScore:', html)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('HighScore:', html)
 
 # # TODO: Verify if words are confirmed as valid by the dictionary 
 # #check upper case, capitalized, lower case, empty string, number
