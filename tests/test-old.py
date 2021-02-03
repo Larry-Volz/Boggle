@@ -12,33 +12,11 @@ class FlaskTests(TestCase):
 
     """Tests for view functions / features!"""
     def test_make_board(self):
-        self.assertIsInstance(b_board.make_board(),list,"not a list")
+        self.assertIsInstance(b_board.make_board(),list,"is it a")
 
-    def test_root_route(self):
-        with app.test_client() as test_server:
-            resp=test_server.get('/')
-            html=resp.get_data(as_text=True)
 
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('Drag your pointer', html)
-
-    def test_start_timer(self):
-        with app.test_client() as test_server:
-            resp=test_server.get('/start-timer')
-            html=resp.get_data(as_text=True)
-
-            self.assertEqual(resp.status_code, 302)
-
-    def test_game_start(self):
-        with app.test_client() as test_server:
-
-            resp=test_server.get('/game-start')
-            html=resp.get_data(as_text=True)
-
-            print(F"STATUSCODE: {resp.status_code}")
-
-            # self.assertEqual(resp.status_code, 200)
-            # self.assertIn('HighScore:', html)
+# self.boggle_game = Boggle()
+# self.board_cells = boggle_game.make_board()
 
 # # TODO: Verify if words are confirmed as valid by the dictionary 
 # #check upper case, capitalized, lower case, empty string, number
@@ -101,3 +79,6 @@ class FlaskTests(TestCase):
 #     response = self.client.get(
 #         '/check-word?word=fsjdakfkldsfjdslkfjdlksf')
 #     self.assertEqual(response.json['result'], 'not-word')
+
+
+
