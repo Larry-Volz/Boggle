@@ -45,6 +45,8 @@ def game_start(word=""):
 
 @app.route('/submit_word', methods=['POST'])
 def get_word():
+    import pdb
+    pdb.set_trace()
     global word
     global words
     global points
